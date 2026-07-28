@@ -61,7 +61,6 @@ export const loginUser = async (userData) => {
   };
 };
 
-<<<<<<< HEAD
 // getProfile Service
 export const getProfile = async (userId) => {
 
@@ -111,7 +110,6 @@ export const logoutUser = async () => {
         message: "Logged out successfully."
     };
 };
-=======
 // Forgot Password Service
 export const forgotPassword = async ({ email }) => {
   if (!email) {
@@ -187,4 +185,3 @@ export const resetPassword = async (token, password) => {
     message: "Password reset successful.",
   };
 };
->>>>>>> 4a8e0daabb468cbc268f3c17f92ab534baa10219
