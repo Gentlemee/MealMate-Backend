@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 // Import routes
 const riderRoutes = require('./routes/riderRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 // Load env vars
 dotenv.config();
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 // Mount routes
 app.use('/api/riders', riderRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 
