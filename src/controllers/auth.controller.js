@@ -42,10 +42,20 @@ export const login = async (req,res)=>{
 export const forgotPassword = async (req,res)=>{
     try{
         const result = await authService.forgotPassword(req.body);
-        return res.status(200).json({
+        const response = {
             success:true,
             message:result.message
-        });
+        };
+
+        if (process.env.NODE_ENV !== "production") {
+            response.data = {
+                resetToken: result.resetToken,
+                resetUrl: result.resetUrl,
+                emailSent: result.emailSent,
+            };
+        }
+
+        return res.status(200).json(response);
     }
     catch(error){
         return res.status(400).json({
