@@ -1,7 +1,7 @@
 import * as authService from "../services/auth.service.js";
 
 
-// Register a new user
+// Register newUser controller  
 export const register = async (req, res) => {
     try{
         const result = await authService.registerUser(req.body);
@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 }; 
 
 
-// Login a user
+// Login controller
 export const login = async (req,res)=>{
     try{
         const result = await authService.loginUser(req.body);
@@ -38,7 +38,7 @@ export const login = async (req,res)=>{
     }
 }; 
 
-// Forgot Password
+// forgotPassword Controller
 export const forgotPassword = async (req,res)=>{
     try{
         const result = await authService.forgotPassword(req.body);
@@ -55,7 +55,7 @@ export const forgotPassword = async (req,res)=>{
     }
 };
 
-// Reset Password 
+// resetPassword Controller 
 export const resetPassword = async (req,res)=>{
     try{
         const result = await authService.resetPassword(
@@ -67,7 +67,6 @@ export const resetPassword = async (req,res)=>{
             message:result.message
         });
     }
-
     catch(error){
         return res.status(400).json({
             success:false,
@@ -76,42 +75,40 @@ export const resetPassword = async (req,res)=>{
     }
 }; 
 
-// Logout
-export const logout = async (req,res)=>{
-    try{
-        await authService.logoutUser();
+// Logout controller
+export const logout = async (req, res) => {
+    try {
+        const result = await authService.logoutUser();
         return res.status(200).json({
-            success:true,
-            message:"Logged out successfully."
+            success: true,
+            message: result.message
         });
     }
-    catch(error){
+    catch (error) {
         return res.status(400).json({
-            success:false,
-            message:error.message
-        });
-    }
-}; 
-
-// Get User Profile
-export const getProfile = async (req,res)=>{
-    try{
-        const profile = await authService.getProfile(req.user.id);
-        return res.status(200).json({
-            success:true,
-            data:profile
-        });
-    }
-
-    catch(error){
-        return res.status(400).json({
-            success:false,
-            message:error.message
+            success: false,
+            message: error.message
         });
     }
 };
 
-// Update User Profile
+// getUser Profile controller
+export const getProfile = async (req, res) => {
+    try {
+        const profile = await authService.getProfile(req.user._id);
+        return res.status(200).json({
+            success: true,
+            data: profile
+        });
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Update User Profile controller
 export const updateProfile = async (req,res)=>{
     try{
         const user = await authService.updateProfile(
@@ -124,7 +121,6 @@ export const updateProfile = async (req,res)=>{
             data:user
         });
     }
-
     catch(error){
         return res.status(400).json({
             success:false,
@@ -132,3 +128,4 @@ export const updateProfile = async (req,res)=>{
         });
     }
 };
+

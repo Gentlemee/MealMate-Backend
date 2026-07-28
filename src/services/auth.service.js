@@ -59,3 +59,53 @@ export const loginUser = async (userData) => {
     token,
   };
 };
+
+// getProfile Service
+export const getProfile = async (userId) => {
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+        throw new Error("User not found.");
+    }
+
+    return user;
+};
+
+// updateProfile Service
+export const updateProfile = async (userId, updateData) => {
+
+    // Check if the email is being changed
+    if (updateData.email) {
+        const existingUser = await User.findOne({
+            email: updateData.email
+        });
+
+        if (
+            existingUser &&
+            existingUser._id.toString() !== userId.toString()
+        ) {
+            throw new Error("Email is already in use.");
+        }
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        updateData,
+        {
+            new: true,
+            runValidators: true
+        }
+    ).select("-password");
+
+    if (!updatedUser) {
+        throw new Error("User not found.");
+    }
+    return updatedUser;
+};
+
+// logout Service
+export const logoutUser = async () => {
+    return {
+        message: "Logged out successfully."
+    };
+};
