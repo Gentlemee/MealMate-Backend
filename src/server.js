@@ -11,5 +11,5 @@ connectDB();
 
 // Start Server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`MealMate server running on port ${PORT}`);
 }); 
