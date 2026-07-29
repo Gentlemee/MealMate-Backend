@@ -7,7 +7,7 @@ const connectDB = require('./config/db');
 const riderRoutes = require('./routes/riderRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
+const cartRoutes  = require('./routes/cart.routes');
 // Load env vars
 dotenv.config();
 
@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 app.use('/api/riders', riderRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/cart', cartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
