@@ -8,6 +8,7 @@ const riderRoutes = require('./routes/riderRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes  = require('./routes/cart.routes');
+const orderRoutes = require("./routes/orderRoutes");
 // Load env vars
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use('/api/riders', riderRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cart', cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
