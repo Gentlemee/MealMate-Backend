@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Uses your existing User model
+const User = require('../models/Users'); 
 
 // Helper function to generate JWT Token
 const generateToken = (id) => {
@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ success: false, message: 'User already exists' });
     }
 
-    // 2. Create the user (Password hashing is handled automatically by pre-save hook in user.js!)
+    // 2. Create the user
     const user = await User.create({
       name,
       email,
