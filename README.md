@@ -1,2 +1,2 @@
 # MealMate-Backend
-MealMate TechCrush Capstone project
+MealMate TechCrush Capstone Project
