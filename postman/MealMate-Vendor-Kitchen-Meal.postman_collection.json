@@ -1,0 +1,331 @@
+{
+  "info": {
+    "name": "MealMate Vendor Kitchen Meal APIs",
+    "_postman_id": "d4eaf595-0d62-44c1-8d70-fce46d06ab9a",
+    "description": "Postman collection for Vendor, Kitchen, and Meal Management endpoints in Gentlemee/MealMate-Backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Vendors",
+      "item": [
+        {
+          "name": "Create Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"businessName\": \"Mama T Kitchen\",\n  \"description\": \"Fresh home-cooked meals\",\n  \"phone\": \"+2348012345678\",\n  \"email\": \"mamat@example.com\",\n  \"minimumPrepTimeMinutes\": 45,\n  \"deliveryRadiusKm\": 8,\n  \"dietaryTags\": [\"halal\"],\n  \"cuisines\": [\"nigerian\"],\n  \"address\": {\n    \"street\": \"12 Adeola Odeku\",\n    \"city\": \"Lagos\",\n    \"state\": \"Lagos\",\n    \"country\": \"Nigeria\",\n    \"lat\": 6.4312,\n    \"lng\": 3.4211\n  },\n  \"openingHours\": [\n    {\n      \"dayOfWeek\": 1,\n      \"opensAt\": \"08:00\",\n      \"closesAt\": \"19:00\"\n    }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/vendors"
+          }
+        },
+        {
+          "name": "Get Vendors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/vendors?search=&city=&state=&cuisine=&dietaryTag=&isOpenNow=",
+              "host": ["{{baseUrl}}"],
+              "path": ["vendors"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "city", "value": "" },
+                { "key": "state", "value": "" },
+                { "key": "cuisine", "value": "" },
+                { "key": "dietaryTag", "value": "" },
+                { "key": "isOpenNow", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Vendor By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vendors/{{vendorId}}"
+          }
+        },
+        {
+          "name": "Update Vendor",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated vendor bio\",\n  \"isOpenNow\": true,\n  \"deliveryRadiusKm\": 10\n}"
+            },
+            "url": "{{baseUrl}}/vendors/{{vendorId}}"
+          }
+        },
+        {
+          "name": "Delete Vendor",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" }
+            ],
+            "url": "{{baseUrl}}/vendors/{{vendorId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kitchens",
+      "item": [
+        {
+          "name": "Create Kitchen",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor\": \"{{vendorId}}\",\n  \"name\": \"Mama Tola's Kitchen\",\n  \"description\": \"Primary kitchen storefront for Lekki orders\",\n  \"serviceModes\": [\"delivery\", \"pickup\"],\n  \"address\": {\n    \"street\": \"12 Adeola Odeku\",\n    \"city\": \"Lagos\",\n    \"state\": \"Lagos\",\n    \"country\": \"Nigeria\",\n    \"lat\": 6.4312,\n    \"lng\": 3.4211\n  },\n  \"isActive\": true\n}"
+            },
+            "url": "{{baseUrl}}/kitchens"
+          }
+        },
+        {
+          "name": "Get Kitchens",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/kitchens?search=&city=&state=&vendor=&serviceMode=",
+              "host": ["{{baseUrl}}"],
+              "path": ["kitchens"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "city", "value": "" },
+                { "key": "state", "value": "" },
+                { "key": "vendor", "value": "" },
+                { "key": "serviceMode", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Kitchen",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated kitchen description\",\n  \"serviceModes\": [\"delivery\"],\n  \"isActive\": true\n}"
+            },
+            "url": "{{baseUrl}}/kitchens/{{kitchenId}}"
+          }
+        },
+        {
+          "name": "Delete Kitchen",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" }
+            ],
+            "url": "{{baseUrl}}/kitchens/{{kitchenId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Meals",
+      "item": [
+        {
+          "name": "Create Meal Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rice Meals\",\n  \"description\": \"Rice-based homemade dishes\",\n  \"icon\": \"rice-bowl\",\n  \"sortOrder\": 1,\n  \"isActive\": true\n}"
+            },
+            "url": "{{baseUrl}}/meals/categories"
+          }
+        },
+        {
+          "name": "Get Meal Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/categories"
+          }
+        },
+        {
+          "name": "Create Meal With Variants",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor\": \"{{vendorId}}\",\n  \"kitchen\": \"{{kitchenId}}\",\n  \"category\": \"{{categoryId}}\",\n  \"name\": \"Smoky Jollof Rice & Chicken\",\n  \"description\": \"Smoky jollof rice served with crispy fried chicken and signature pepper sauce\",\n  \"prepTimeMinutes\": 35,\n  \"dietaryTags\": [\"halal\"],\n  \"allergenTags\": [\"gluten\"],\n  \"spiceLevel\": \"medium\",\n  \"visibility\": \"published\",\n  \"variants\": [\n    {\n      \"name\": \"Regular\",\n      \"price\": 7000,\n      \"discountPrice\": 6500,\n      \"isDefault\": true,\n      \"isAvailable\": true\n    },\n    {\n      \"name\": \"Large\",\n      \"price\": 13000,\n      \"servingLabel\": \"serves 2-3\",\n      \"isAvailable\": true\n    },\n    {\n      \"name\": \"Family Pack\",\n      \"price\": 80000,\n      \"servingLabel\": \"serves 4-6\",\n      \"isAvailable\": true\n    },\n    {\n      \"name\": \"Extended Family Pack\",\n      \"price\": 140000,\n      \"servingLabel\": \"serves 7-15\",\n      \"isAvailable\": true\n    }\n  ],\n  \"availability\": {\n    \"isAvailable\": true,\n    \"dailyStock\": 20,\n    \"remainingStock\": 20,\n    \"availableFrom\": \"09:00\",\n    \"availableUntil\": \"18:00\",\n    \"blackoutDates\": []\n  },\n  \"images\": [\n    {\n      \"imageUrl\": \"https://example.com/jollof.jpg\",\n      \"altText\": \"Smoky Jollof Rice and Chicken\",\n      \"isCover\": true\n    }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/meals"
+          }
+        },
+        {
+          "name": "Get Meals",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/meals?search=&vendor=&kitchen=&category=&dietaryTag=&isAvailable=true&sort=popularity",
+              "host": ["{{baseUrl}}"],
+              "path": ["meals"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "vendor", "value": "" },
+                { "key": "kitchen", "value": "" },
+                { "key": "category", "value": "" },
+                { "key": "dietaryTag", "value": "" },
+                { "key": "isAvailable", "value": "true" },
+                { "key": "sort", "value": "popularity" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Meal By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/{{mealId}}"
+          }
+        },
+        {
+          "name": "Update Meal Variants",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"variants\": [\n    {\n      \"name\": \"Regular\",\n      \"price\": 7500,\n      \"discountPrice\": 7000,\n      \"isDefault\": true,\n      \"isAvailable\": true\n    },\n    {\n      \"name\": \"Large\",\n      \"price\": 13500,\n      \"servingLabel\": \"serves 2-3\",\n      \"isAvailable\": true\n    }\n  ],\n  \"visibility\": \"published\",\n  \"dietaryTags\": [\"halal\", \"high-protein\"]\n}"
+            },
+            "url": "{{baseUrl}}/meals/{{mealId}}"
+          }
+        },
+        {
+          "name": "Delete Meal",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" }
+            ],
+            "url": "{{baseUrl}}/meals/{{mealId}}"
+          }
+        },
+        {
+          "name": "Get Popular Meals",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/popular?limit=10"
+          }
+        },
+        {
+          "name": "Get Recommended Meals",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/recommended?limit=10"
+          }
+        },
+        {
+          "name": "Get Meal Availability",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/{{mealId}}/availability"
+          }
+        },
+        {
+          "name": "Update Meal Availability",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isAvailable\": true,\n  \"dailyStock\": 20,\n  \"remainingStock\": 12,\n  \"availableFrom\": \"09:00\",\n  \"availableUntil\": \"18:00\",\n  \"blackoutDates\": [\"2026-08-01\"]\n}"
+            },
+            "url": "{{baseUrl}}/meals/{{mealId}}/availability"
+          }
+        },
+        {
+          "name": "Get Meal Images",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/meals/{{mealId}}/images"
+          }
+        },
+        {
+          "name": "Add Meal Image",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"imageUrl\": \"https://example.com/jollof-2.jpg\",\n  \"altText\": \"Another view of Smoky Jollof Rice and Chicken\",\n  \"isCover\": false\n}"
+            },
+            "url": "{{baseUrl}}/meals/{{mealId}}/images"
+          }
+        },
+        {
+          "name": "Update Meal Image",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"altText\": \"Updated image caption\",\n  \"isCover\": true\n}"
+            },
+            "url": "{{baseUrl}}/meals/{{mealId}}/images/{{imageId}}"
+          }
+        },
+        {
+          "name": "Delete Meal Image",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{vendorToken}}" }
+            ],
+            "url": "{{baseUrl}}/meals/{{mealId}}/images/{{imageId}}"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api" },
+    { "key": "vendorToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "vendorId", "value": "" },
+    { "key": "kitchenId", "value": "" },
+    { "key": "categoryId", "value": "" },
+    { "key": "mealId", "value": "" },
+    { "key": "imageId", "value": "" }
+  ]
+}
