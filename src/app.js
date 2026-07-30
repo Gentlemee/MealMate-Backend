@@ -1,14 +1,19 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
 const connectDB = require('./config/db');
-
-// Import routes
 const riderRoutes = require('./routes/riderRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes  = require('./routes/cart.routes');
 const orderRoutes = require("./routes/orderRoutes");
+const vendorRoutes = require('./routes/vendorRoutes');
+const kitchenRoutes = require('./routes/kitchenRoutes');
+const mealRoutes = require('./routes/mealRoutes');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+
 // Load env vars
 dotenv.config();
 
@@ -17,11 +22,11 @@ connectDB();
 
 const app = express();
 
-// Enable CORS for cross-origin requests
+app.use(helmet());
 app.use(cors());
-
-// Middleware to parse incoming JSON
+app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Base test route
 app.get('/', (req, res) => {
@@ -34,6 +39,12 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cart', cartRoutes);
 app.use("/api/orders", orderRoutes);
+app.use('/api/vendors', vendorRoutes);
+app.use('/api/kitchens', kitchenRoutes);
+app.use('/api/meals', mealRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

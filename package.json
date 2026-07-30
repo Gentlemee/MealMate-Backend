@@ -4,8 +4,9 @@
   "description": "Backend API for MealMate - Mobile Food Ordering and Delivery Platform",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node ./src/app.js",
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js ./src/app.js",
+    "seed:test-users": "node ./src/scripts/seedTestUsers.js"
   },
   "repository": {
     "type": "git",
