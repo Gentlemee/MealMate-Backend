@@ -10,6 +10,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes  = require('./routes/cart.routes');
 const favouriteRoutes = require("./routes/favourite.routes");
 const mealRoutes = require('./routes/meal'); // Pointing to meal.js
+const authRoutes = require('./routes/auth'); // Added auth routes import
 
 // Load env vars
 dotenv.config();
@@ -37,6 +38,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/favourites', favouriteRoutes);
 app.use('/api/meals', mealRoutes); // Mounted meal routes
+app.use('/api/auth', authRoutes); // Mounted auth routes
 
 const PORT = process.env.PORT || 5000;
 
