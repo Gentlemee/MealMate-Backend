@@ -16,18 +16,52 @@ const {
   authorize,
 } = require("../middleware/authMiddleware");
 
-// Customer
-router.post("/", protect, authorize("customer"), createOrder);
-router.get("/", protect, authorize("customer"), getMyOrders);
-router.get("/history", protect, authorize("customer"), getOrderHistory);
+// Customer Routes
 
-// Customer / Vendor / Admin
-router.get("/:id", protect, getOrderById);
 
-// Customer
-router.delete("/:id", protect, authorize("customer"), cancelOrder);
+// Create Order
+router.post(
+  "/",
+  protect,
+  authorize("customer"),
+  createOrder
+);
 
-// Vendor
+// Get Customer Orders
+router.get(
+  "/my-orders",
+  protect,
+  authorize("customer"),
+  getMyOrders
+);
+
+// Get Customer Order History
+router.get(
+  "/history",
+  protect,
+  authorize("customer"),
+  getOrderHistory
+);
+
+// Get Single Order
+router.get(
+  "/:id",
+  protect,
+  getOrderById
+);
+
+// Cancel Order
+router.patch(
+  "/:id/cancel",
+  protect,
+  authorize("customer"),
+  cancelOrder
+);
+
+// Vendor Routes
+
+
+// Get Vendor Orders
 router.get(
   "/vendor/orders",
   protect,
@@ -35,11 +69,11 @@ router.get(
   getVendorOrders
 );
 
-// Vendor/Admin
+// Update Order Status
 router.patch(
   "/:id/status",
   protect,
-  authorize("vendor", "admin"),
+  authorize("vendor"),
   updateOrderStatus
 );
 

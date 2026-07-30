@@ -8,11 +8,22 @@ const orderItemSchema = new mongoose.Schema(
       required: true,
     },
 
+    vendor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vendor",
+      required: true,
+    },
+
     quantity: {
       type: Number,
       required: true,
       min: 1,
-      default: 1,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
     },
   },
   {
@@ -28,19 +39,12 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    vendor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Vendor",
-      required: true,
-    },
+    items: [orderItemSchema],
 
-    items: {
-      type: [orderItemSchema],
+    totalAmount: {
+      type: Number,
       required: true,
-      validate: {
-        validator: (items) => items.length > 0,
-        message: "Order must contain at least one meal.",
-      },
+      min: 0,
     },
 
     deliveryAddress: {
@@ -48,61 +52,40 @@ const orderSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-
       city: {
         type: String,
         required: true,
       },
-
       state: {
         type: String,
         required: true,
       },
     },
 
-    subtotal: {
-      type: Number,
-      required: true,
-    },
-
-    deliveryFee: {
-      type: Number,
-      default: 0,
-    },
-
-    totalAmount: {
-      type: Number,
-      required: true,
-    },
-
-    status: {
-      type: String,
-      enum: [
-        "Pending",
-        "Accepted",
-        "Preparing",
-        "Out for Delivery",
-        "Delivered",
-        "Cancelled",
-      ],
-      default: "Pending",
-    },
-
     paymentMethod: {
       type: String,
-      enum: ["Paystack", "Flutterwave", "Cash"],
-      default: "Paystack",
+      enum: ["card", "cash", "bank_transfer"],
+      required: true,
     },
 
     paymentStatus: {
       type: String,
-      enum: ["Pending", "Paid", "Failed"],
-      default: "Pending",
+      enum: ["pending", "paid", "failed", "refunded"],
+      default: "pending",
     },
 
-    transactionReference: {
+    orderStatus: {
       type: String,
-      default: "",
+      enum: [
+        "pending",
+        "accepted",
+        "preparing",
+        "ready",
+        "out_for_delivery",
+        "delivered",
+        "cancelled",
+      ],
+      default: "pending",
     },
   },
   {
