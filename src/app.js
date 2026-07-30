@@ -9,6 +9,8 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cartRoutes  = require('./routes/cart.routes');
 const favouriteRoutes = require("./routes/favourite.routes");
+const mealRoutes = require('./routes/meal'); // Pointing to meal.js
+
 // Load env vars
 dotenv.config();
 
@@ -33,7 +35,8 @@ app.use('/api/riders', riderRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cart', cartRoutes);
-app.use("/api/favourites", favouriteRoutes);
+app.use('/api/favourites', favouriteRoutes);
+app.use('/api/meals', mealRoutes); // Mounted meal routes
 
 const PORT = process.env.PORT || 5000;
 
