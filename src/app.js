@@ -15,7 +15,6 @@ const mealRoutes = require('./routes/mealRoutes');
 const paymentRoutes = require("./routes/paymentRoutes");
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const favouriteRoutes = require("./routes/favourite.routes");
-const mealRoutes = require('./routes/meal'); // Pointing to meal.js
 const authRoutes = require('./routes/auth'); // Added auth routes import
 
 // Load env vars
