@@ -14,6 +14,9 @@ const kitchenRoutes = require('./routes/kitchenRoutes');
 const mealRoutes = require('./routes/mealRoutes');
 const paymentRoutes = require("./routes/paymentRoutes");
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const favouriteRoutes = require("./routes/favourite.routes");
+const mealRoutes = require('./routes/meal'); // Pointing to meal.js
+const authRoutes = require('./routes/auth'); // Added auth routes import
 
 // Load env vars
 dotenv.config();
@@ -46,6 +49,9 @@ app.use('/api/meals', mealRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use(notFound);
 app.use(errorHandler);
+app.use('/api/favourites', favouriteRoutes);
+app.use('/api/meals', mealRoutes); // Mounted meal routes
+app.use('/api/auth', authRoutes); // Mounted auth routes
 
 const PORT = process.env.PORT || 5000;
 
