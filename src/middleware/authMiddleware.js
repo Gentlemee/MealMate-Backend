@@ -18,6 +18,17 @@ exports.protect = async (req, res, next) => {
 
       // Get user from the token payload (excluding password)
       req.user = await User.findById(decoded.id).select('-password');
+      const Vendor = require("../models/Vendor");
+
+if (req.user.role === "vendor") {
+    const vendor = await Vendor.findOne({
+        user: req.user._id
+    });
+
+    if (vendor) {
+        req.user.vendor = vendor._id;
+    }
+}
 
       if (!req.user) {
         return res.status(401).json({ message: 'User no longer exists' });

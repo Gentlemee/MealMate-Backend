@@ -14,7 +14,7 @@ exports.createOrder = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: "Order created successfully.",
+    message: "Orders created successfully.",
     data: order,
   });
 });

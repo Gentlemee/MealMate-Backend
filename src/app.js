@@ -12,6 +12,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const vendorRoutes = require('./routes/vendorRoutes');
 const kitchenRoutes = require('./routes/kitchenRoutes');
 const mealRoutes = require('./routes/mealRoutes');
+const paymentRoutes = require("./routes/paymentRoutes");
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 // Load env vars
@@ -42,7 +43,7 @@ app.use("/api/orders", orderRoutes);
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/kitchens', kitchenRoutes);
 app.use('/api/meals', mealRoutes);
-
+app.use("/api/payments", paymentRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
