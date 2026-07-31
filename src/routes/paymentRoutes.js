@@ -6,24 +6,17 @@ const {
   verifyPayment,
 } = require("../controllers/paymentController");
 
-const {
-  protect,
-  authorize,
-} = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
-// Initialize Payment
 router.post(
-  "/:orderId/initialize",
+  "/initialize/:orderId",
   protect,
-  authorize("customer"),
   initializePayment
 );
 
-// Verify Payment
 router.get(
-  "/:orderId/verify",
+  "/verify/:reference",
   protect,
-  authorize("customer"),
   verifyPayment
 );
 

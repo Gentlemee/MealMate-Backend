@@ -46,11 +46,10 @@ app.use('/api/vendors', vendorRoutes);
 app.use('/api/kitchens', kitchenRoutes);
 app.use('/api/meals', mealRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use('/api/favourites', favouriteRoutes);
+app.use('/api/auth', authRoutes); // Mounted auth routes
 app.use(notFound);
 app.use(errorHandler);
-app.use('/api/favourites', favouriteRoutes);
-app.use('/api/meals', mealRoutes); // Mounted meal routes
-app.use('/api/auth', authRoutes); // Mounted auth routes
 
 const PORT = process.env.PORT || 5000;
 
