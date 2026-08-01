@@ -1,4 +1,4 @@
-const Review = require("../models/review.model");
+import Review from "../models/review.model.js";
 
 // Create review
 const createReview = async (req, res) => {
@@ -49,12 +49,14 @@ const updateReview = async (req, res) => {
 
     if (!review) {
       return res.status(404).json({
+        success: false,
         message: "Review not found",
       });
     }
 
     if (review.user.toString() !== req.user.id) {
       return res.status(403).json({
+        success: false,
         message: "Not authorized",
       });
     }
@@ -85,12 +87,14 @@ const deleteReview = async (req, res) => {
 
     if (!review) {
       return res.status(404).json({
+        success: false,
         message: "Review not found",
       });
     }
 
     if (review.user.toString() !== req.user.id) {
       return res.status(403).json({
+        success: false,
         message: "Not authorized",
       });
     }
@@ -111,7 +115,7 @@ const deleteReview = async (req, res) => {
 };
 
 
-module.exports = {
+export {
   createReview,
   getMealReviews,
   updateReview,
