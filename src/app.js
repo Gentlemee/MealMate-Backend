@@ -7,6 +7,7 @@ import mealRoutes from "./routes/meal.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import favouriteRoutes from "./routes/favourite.routes.js";
+import addressRoutes from "./routes/address.routes.js";
 dotenv.config();
 
 const app = express();
@@ -21,5 +22,6 @@ app.use("/api/meals", mealRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/addresses", addressRoutes);
 
 export default app;
