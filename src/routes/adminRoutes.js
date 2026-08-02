@@ -1,18 +1,24 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from "express";
+import {
   getDashboardStats,
   getAllRiders,
   updateRiderStatus,
-} = require('../controllers/adminController');
-const { protect, authorize } = require('../middleware/authMiddleware');
+} from "../controllers/adminController.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
 
-// Protect all admin routes and restrict to 'admin' role
+const router = express.Router();
+
+// Protect all admin routes and restrict access to admin role
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize("admin"));
 
-router.get('/stats', getDashboardStats);
-router.get('/riders', getAllRiders);
-router.patch('/riders/:id/status', updateRiderStatus);
+// Admin dashboard statistics
+router.get("/stats", getDashboardStats);
 
-module.exports = router;
+// Get all riders
+router.get("/riders", getAllRiders);
+
+// Update rider status
+router.patch("/riders/:id/status", updateRiderStatus);
+
+export default router;

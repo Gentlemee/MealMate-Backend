@@ -1,4 +1,4 @@
-const cartService = require("../services/cart.service");
+import * as cartService from "../services/cart.service.js";
 
 // Add a meal to cart
 const addToCart = async (req, res) => {
@@ -114,7 +114,7 @@ const clearCart = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   addToCart,
   getCart,
   updateCart,
