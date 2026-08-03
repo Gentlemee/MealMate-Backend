@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const paymentSchema = new mongoose.Schema(
   {
@@ -7,36 +7,30 @@ const paymentSchema = new mongoose.Schema(
       ref: "Order",
       required: true,
     },
-
     customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-
     amount: {
       type: Number,
       required: true,
     },
-
     paymentMethod: {
       type: String,
       enum: ["Paystack", "Flutterwave", "Cash"],
       default: "Paystack",
     },
-
     transactionReference: {
       type: String,
       required: true,
       unique: true,
     },
-
     status: {
       type: String,
       enum: ["Pending", "Paid", "Failed"],
       default: "Pending",
     },
-
     paidAt: Date,
   },
   {
@@ -44,4 +38,5 @@ const paymentSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Payment", paymentSchema);
+const Payment = mongoose.model("Payment", paymentSchema);
+export default Payment;

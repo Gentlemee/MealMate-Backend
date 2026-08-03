@@ -1,42 +1,10 @@
-const express = require('express');
+import express from "express";
+import { createKitchen, getKitchens, updateKitchen, deleteKitchen } from "../controllers/kitchenController.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
+import { validateObjectIdParam, validateKitchenCreate, validateKitchenUpdate } from "../middleware/validateRequest.js";
+
 const router = express.Router();
-const {
-  createKitchen,
-  getKitchens,
-  updateKitchen,
-  deleteKitchen,
-} = require('../controllers/kitchenController');
-const { protect, authorize } = require('../middleware/authMiddleware');
-const {
-  validateObjectIdParam,
-  validateKitchenCreate,
-  validateKitchenUpdate,
-} = require('../middleware/validateRequest');
+router.route("/").post(protect, authorize("vendor", "admin"), validateKitchenCreate, createKitchen).get(getKitchens);
+router.route("/:id").patch(protect, authorize("vendor", "admin"), validateObjectIdParam("id"), validateKitchenUpdate, updateKitchen).delete(protect, authorize("vendor", "admin"), validateObjectIdParam("id"), deleteKitchen);
 
-router
-  .route('/')
-  .post(
-    protect,
-    authorize('vendor', 'admin'),
-    validateKitchenCreate,
-    createKitchen
-  )
-  .get(getKitchens);
-
-router
-  .route('/:id')
-  .patch(
-    protect,
-    authorize('vendor', 'admin'),
-    validateObjectIdParam('id'),
-    validateKitchenUpdate,
-    updateKitchen
-  )
-  .delete(
-    protect,
-    authorize('vendor', 'admin'),
-    validateObjectIdParam('id'),
-    deleteKitchen
-  );
-
-module.exports = router;
+export default router;

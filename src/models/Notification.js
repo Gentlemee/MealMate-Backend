@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const notificationSchema = new mongoose.Schema(
   {
-    // The recipient who receives the notification
     recipient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     title: {
@@ -20,21 +19,20 @@ const notificationSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['order_update', 'delivery_update', 'system_alert', 'account_update'],
-      default: 'system_alert',
+      enum: ["order_update", "delivery_update", "system_alert", "account_update"],
+      default: "system_alert",
     },
     isRead: {
       type: Boolean,
       default: false,
     },
-    // Optional link to an associated order or resource
     relatedId: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: 'onModel',
+      refPath: "onModel",
     },
     onModel: {
       type: String,
-      enum: ['Order', 'Meal', 'Payment'],
+      enum: ["Order", "Meal", "Payment"],
     },
   },
   {
@@ -42,4 +40,5 @@ const notificationSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Notification', notificationSchema);
+const Notification = mongoose.model("Notification", notificationSchema);
+export default Notification;

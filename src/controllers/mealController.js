@@ -1,7 +1,7 @@
-const Meal = require('../models/Meal');
-const MealCategory = require('../models/MealCategory');
-const Kitchen = require('../models/Kitchen');
-const Vendor = require('../models/Vendor');
+import Meal from '../models/Meal.js';
+import MealCategory from '../models/MealCategory.js';
+import Kitchen from '../models/Kitchen.js';
+import Vendor from '../models/Vendor.js';
 
 const calculateDistanceKm = (lat1, lng1, lat2, lng2) => {
   const toRadians = (value) => (value * Math.PI) / 180;
@@ -108,7 +108,7 @@ const deriveBasePricing = (body) => {
 // @desc    Create meal
 // @route   POST /api/meals
 // @access  Private (Vendor/Admin)
-exports.createMeal = async (req, res, next) => {
+const createMeal = async (req, res, next) => {
   try {
     const vendorProfile = await getVendorForUser(req.user.id);
     const vendorId = req.body.vendor || (vendorProfile && vendorProfile._id);
@@ -198,7 +198,7 @@ exports.createMeal = async (req, res, next) => {
 // @desc    Get meals
 // @route   GET /api/meals
 // @access  Public
-exports.getMeals = async (req, res, next) => {
+const getMeals = async (req, res, next) => {
   try {
     const {
       search,
@@ -297,7 +297,7 @@ exports.getMeals = async (req, res, next) => {
 // @desc    Get meal by id
 // @route   GET /api/meals/:id
 // @access  Public
-exports.getMealById = async (req, res, next) => {
+const getMealById = async (req, res, next) => {
   try {
     const meal = await populateMealQuery(Meal.findById(req.params.id));
 
@@ -314,7 +314,7 @@ exports.getMealById = async (req, res, next) => {
 // @desc    Update meal
 // @route   PATCH /api/meals/:id
 // @access  Private (Owner/Admin)
-exports.updateMeal = async (req, res, next) => {
+const updateMeal = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
 
@@ -405,7 +405,7 @@ exports.updateMeal = async (req, res, next) => {
 // @desc    Delete meal
 // @route   DELETE /api/meals/:id
 // @access  Private (Owner/Admin)
-exports.deleteMeal = async (req, res, next) => {
+const deleteMeal = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
 
@@ -427,7 +427,7 @@ exports.deleteMeal = async (req, res, next) => {
 // @desc    Get meal categories
 // @route   GET /api/meals/categories
 // @access  Public
-exports.getMealCategories = async (_req, res, next) => {
+const getMealCategories = async (_req, res, next) => {
   try {
     const categories = await MealCategory.find({ isActive: true }).sort({
       sortOrder: 1,
@@ -443,7 +443,7 @@ exports.getMealCategories = async (_req, res, next) => {
 // @desc    Create meal category
 // @route   POST /api/meals/categories
 // @access  Private (Admin)
-exports.createMealCategory = async (req, res, next) => {
+const createMealCategory = async (req, res, next) => {
   try {
     const baseSlug = buildSlug(req.body.name);
     let slug = baseSlug;
@@ -472,7 +472,7 @@ exports.createMealCategory = async (req, res, next) => {
 // @desc    Update meal category
 // @route   PATCH /api/meals/categories/:id
 // @access  Private (Admin)
-exports.updateMealCategory = async (req, res, next) => {
+const updateMealCategory = async (req, res, next) => {
   try {
     const category = await MealCategory.findById(req.params.id);
     if (!category) {
@@ -500,7 +500,7 @@ exports.updateMealCategory = async (req, res, next) => {
 // @desc    Delete meal category
 // @route   DELETE /api/meals/categories/:id
 // @access  Private (Admin)
-exports.deleteMealCategory = async (req, res, next) => {
+const deleteMealCategory = async (req, res, next) => {
   try {
     const category = await MealCategory.findById(req.params.id);
     if (!category) {
@@ -517,7 +517,7 @@ exports.deleteMealCategory = async (req, res, next) => {
 // @desc    Get meal availability
 // @route   GET /api/meals/:id/availability
 // @access  Public
-exports.getMealAvailability = async (req, res, next) => {
+const getMealAvailability = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).select('name availability');
     if (!meal) {
@@ -540,7 +540,7 @@ exports.getMealAvailability = async (req, res, next) => {
 // @desc    Update meal availability
 // @route   PATCH /api/meals/:id/availability
 // @access  Private (Owner/Admin)
-exports.updateMealAvailability = async (req, res, next) => {
+const updateMealAvailability = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
     if (!meal) {
@@ -566,7 +566,7 @@ exports.updateMealAvailability = async (req, res, next) => {
 // @desc    Add meal image
 // @route   POST /api/meals/:id/images
 // @access  Private (Owner/Admin)
-exports.addMealImage = async (req, res, next) => {
+const addMealImage = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
     if (!meal) {
@@ -600,7 +600,7 @@ exports.addMealImage = async (req, res, next) => {
 // @desc    Get meal images
 // @route   GET /api/meals/:id/images
 // @access  Public
-exports.getMealImages = async (req, res, next) => {
+const getMealImages = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).select('name images');
     if (!meal) {
@@ -616,7 +616,7 @@ exports.getMealImages = async (req, res, next) => {
 // @desc    Update meal image
 // @route   PATCH /api/meals/:id/images/:imageId
 // @access  Private (Owner/Admin)
-exports.updateMealImage = async (req, res, next) => {
+const updateMealImage = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
     if (!meal) {
@@ -654,7 +654,7 @@ exports.updateMealImage = async (req, res, next) => {
 // @desc    Delete meal image
 // @route   DELETE /api/meals/:id/images/:imageId
 // @access  Private (Owner/Admin)
-exports.deleteMealImage = async (req, res, next) => {
+const deleteMealImage = async (req, res, next) => {
   try {
     const meal = await Meal.findById(req.params.id).populate('vendor');
     if (!meal) {
@@ -681,7 +681,7 @@ exports.deleteMealImage = async (req, res, next) => {
 // @desc    Get popular meals
 // @route   GET /api/meals/popular
 // @access  Public
-exports.getPopularMeals = async (req, res, next) => {
+const getPopularMeals = async (req, res, next) => {
   try {
     const limit = Number(req.query.limit) || 10;
     const meals = await populateMealQuery(
@@ -699,7 +699,7 @@ exports.getPopularMeals = async (req, res, next) => {
 // @desc    Get recommended meals
 // @route   GET /api/meals/recommended
 // @access  Public
-exports.getRecommendedMeals = async (req, res, next) => {
+const getRecommendedMeals = async (req, res, next) => {
   try {
     const limit = Number(req.query.limit) || 10;
     const filter = { visibility: 'published', 'availability.isAvailable': true };
@@ -723,3 +723,24 @@ exports.getRecommendedMeals = async (req, res, next) => {
     return next(error);
   }
 };
+
+export { 
+  createMeal,
+  getMeals,
+  getMealById,
+  updateMeal,
+  deleteMeal,
+  getMealCategories,
+  createMealCategory,
+  updateMealCategory,
+  deleteMealCategory,
+  getMealAvailability,
+  updateMealAvailability,
+  addMealImage,
+  getMealImages,
+  updateMealImage,
+  deleteMealImage,
+  getPopularMeals,
+  getRecommendedMeals,
+};
+

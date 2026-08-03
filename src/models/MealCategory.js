@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const mealCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Please add a category name'],
+      required: [true, "Please add a category name"],
       trim: true,
     },
     slug: {
@@ -15,12 +15,12 @@ const mealCategorySchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
     },
     icon: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
     },
     sortOrder: {
@@ -37,4 +37,5 @@ const mealCategorySchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('MealCategory', mealCategorySchema);
+const MealCategory = mongoose.model("MealCategory", mealCategorySchema);
+export default MealCategory;

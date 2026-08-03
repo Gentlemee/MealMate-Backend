@@ -1,36 +1,16 @@
-const mongoose = require('mongoose');
-
-const openingHourSchema = new mongoose.Schema(
-  {
-    dayOfWeek: {
-      type: Number,
-      min: 0,
-      max: 6,
-      required: true,
-    },
-    opensAt: {
-      type: String,
-      required: true,
-    },
-    closesAt: {
-      type: String,
-      required: true,
-    },
-  },
-  { _id: false }
-);
+import mongoose from "mongoose";
 
 const vendorSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
       unique: true,
     },
     businessName: {
       type: String,
-      required: [true, 'Please add a business name'],
+      required: [true, "Please add a business name"],
       trim: true,
     },
     slug: {
@@ -41,24 +21,24 @@ const vendorSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
     },
     phone: {
       type: String,
-      required: [true, 'Please add a business phone number'],
+      required: [true, "Please add a business phone number"],
       trim: true,
     },
     email: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
       lowercase: true,
     },
     verificationStatus: {
       type: String,
-      enum: ['pending', 'verified', 'rejected'],
-      default: 'pending',
+      enum: ["pending", "verified", "rejected"],
+      default: "pending",
     },
     isActive: {
       type: Boolean,
@@ -90,35 +70,32 @@ const vendorSchema = new mongoose.Schema(
       min: 0,
     },
     address: {
-      street: { type: String, default: '' },
-      city: { type: String, default: '' },
-      state: { type: String, default: '' },
-      country: { type: String, default: 'Nigeria' },
+      street: { type: String, default: "" },
+      city: { type: String, default: "" },
+      state: { type: String, default: "" },
+      country: { type: String, default: "Nigeria" },
       lat: { type: Number },
       lng: { type: Number },
     },
-    dietaryTags: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
-    cuisines: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
+    dietaryTags: [{ type: String, trim: true }],
+    cuisines: [{ type: String, trim: true }],
     coverImage: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
     },
-    openingHours: [openingHourSchema],
+    openingHours: [
+      {
+        dayOfWeek: { type: Number, min: 0, max: 6, required: true },
+        opensAt: { type: String, required: true },
+        closesAt: { type: String, required: true },
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('Vendor', vendorSchema);
+const Vendor = mongoose.model("Vendor", vendorSchema);
+export default Vendor;

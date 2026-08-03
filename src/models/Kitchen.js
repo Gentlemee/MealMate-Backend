@@ -1,15 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const kitchenSchema = new mongoose.Schema(
   {
     vendor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Vendor',
+      ref: "Vendor",
       required: true,
     },
     name: {
       type: String,
-      required: [true, 'Please add a kitchen/storefront name'],
+      required: [true, "Please add a kitchen/storefront name"],
       trim: true,
     },
     slug: {
@@ -20,14 +20,14 @@ const kitchenSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      default: '',
+      default: "",
       trim: true,
     },
     serviceModes: [
       {
         type: String,
-        enum: ['delivery', 'pickup', 'dine-in'],
-        default: 'delivery',
+        enum: ["delivery", "pickup", "dine-in"],
+        default: "delivery",
       },
     ],
     isActive: {
@@ -35,10 +35,10 @@ const kitchenSchema = new mongoose.Schema(
       default: true,
     },
     address: {
-      street: { type: String, default: '' },
-      city: { type: String, default: '' },
-      state: { type: String, default: '' },
-      country: { type: String, default: 'Nigeria' },
+      street: { type: String, default: "" },
+      city: { type: String, default: "" },
+      state: { type: String, default: "" },
+      country: { type: String, default: "Nigeria" },
       lat: { type: Number },
       lng: { type: Number },
     },
@@ -48,4 +48,5 @@ const kitchenSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Kitchen', kitchenSchema);
+const Kitchen = mongoose.model("Kitchen", kitchenSchema);
+export default Kitchen;
