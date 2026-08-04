@@ -1,10 +1,10 @@
-const Rider = require('../models/Rider');
-const User = require('../models/Users');
+import Rider from '../models/Rider.js';
+import User from '../models/Users.js';
 
 // @desc    Register rider profile details
 // @route   POST /api/riders/register
 // @access  Private (Riders only)
-exports.registerRiderProfile = async (req, res) => {
+export const registerRiderProfile = async (req, res) => {
   try {
     const { vehicleType, licensePlate } = req.body;
 
@@ -29,7 +29,7 @@ exports.registerRiderProfile = async (req, res) => {
 // @desc    Get current rider profile
 // @route   GET /api/riders/me
 // @access  Private (Riders only)
-exports.getRiderProfile = async (req, res) => {
+export const getRiderProfile = async (req, res) => {
   try {
     const rider = await Rider.findOne({ user: req.user.id }).populate('user', 'name email phoneNumber role');
 
@@ -46,7 +46,7 @@ exports.getRiderProfile = async (req, res) => {
 // @desc    Toggle active availability status (online/offline)
 // @route   PATCH /api/riders/availability
 // @access  Private (Riders only)
-exports.toggleAvailability = async (req, res) => {
+export const toggleAvailability = async (req, res) => {
   try {
     const rider = await Rider.findOne({ user: req.user.id });
 

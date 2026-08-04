@@ -1,23 +1,22 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from 'express';
+import {
   initializePayment,
   verifyPayment,
-} = require("../controllers/paymentController");
+} from '../controllers/paymentController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
-const { protect } = require("../middleware/authMiddleware");
+const router = express.Router();
 
 router.post(
-  "/initialize/:orderId",
+  '/initialize/:orderId',
   protect,
   initializePayment
 );
 
 router.get(
-  "/verify/:reference",
+  '/verify/:reference',
   protect,
   verifyPayment
 );
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const axios = require("axios");
-const Order = require("../models/Order");
+import axios from 'axios';
+import Order from '../models/Order.js';
 
 // Initialize Payment
 
@@ -85,7 +85,7 @@ const verifyPayment = async (reference) => {
   };
 };
 
-module.exports = {
+export {
   initializePayment,
   verifyPayment,
 };

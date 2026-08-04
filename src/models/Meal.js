@@ -220,6 +220,6 @@ const mealSchema = new mongoose.Schema(
   }
 );
 
-const Meal = mongoose.model("Meal", mealSchema);
+const Meal = mongoose.models.Meal || mongoose.model("Meal", mealSchema);
 
 export default Meal;

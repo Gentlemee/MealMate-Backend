@@ -1,4 +1,4 @@
-const Cart = require("../models/Cart");
+import Cart from '../models/Cart.js';
 
 const addToCart = async (customerId, mealId, quantity = 1) => {
   let cart = await Cart.findOne({ customer: customerId });
@@ -38,7 +38,7 @@ const addToCart = async (customerId, mealId, quantity = 1) => {
 // Get customer's cart
 const getCart = async (customerId) => {
   const cart = await Cart.findOne({ customer: customerId }).populate(
-    "items.meal"
+    'items.meal'
   );
 
   if (!cart) {
@@ -50,12 +50,13 @@ const getCart = async (customerId) => {
 
   return cart;
 };
+
 // Update the quantity of a meal in the cart
 const updateCart = async (customerId, mealId, quantity) => {
   const cart = await Cart.findOne({ customer: customerId });
 
   if (!cart) {
-    throw new Error("Cart not found");
+    throw new Error('Cart not found');
   }
 
   const item = cart.items.find(
@@ -63,11 +64,11 @@ const updateCart = async (customerId, mealId, quantity) => {
   );
 
   if (!item) {
-    throw new Error("Meal not found in cart");
+    throw new Error('Meal not found in cart');
   }
 
   if (quantity < 1) {
-    throw new Error("Quantity must be at least 1");
+    throw new Error('Quantity must be at least 1');
   }
 
   item.quantity = quantity;
@@ -76,12 +77,13 @@ const updateCart = async (customerId, mealId, quantity) => {
 
   return cart;
 };
+
 // Remove a meal from the cart
 const removeFromCart = async (customerId, mealId) => {
   const cart = await Cart.findOne({ customer: customerId });
 
   if (!cart) {
-    throw new Error("Cart not found");
+    throw new Error('Cart not found');
   }
 
   const itemExists = cart.items.some(
@@ -89,7 +91,7 @@ const removeFromCart = async (customerId, mealId) => {
   );
 
   if (!itemExists) {
-    throw new Error("Meal not found in cart");
+    throw new Error('Meal not found in cart');
   }
 
   cart.items = cart.items.filter(
@@ -100,12 +102,13 @@ const removeFromCart = async (customerId, mealId) => {
 
   return cart;
 };
+
 // Clear all items from the cart
 const clearCart = async (customerId) => {
   const cart = await Cart.findOne({ customer: customerId });
 
   if (!cart) {
-    throw new Error("Cart not found");
+    throw new Error('Cart not found');
   }
 
   cart.items = [];
@@ -114,7 +117,8 @@ const clearCart = async (customerId) => {
 
   return cart;
 };
-module.exports = {
+
+export {
   addToCart,
   getCart,
   updateCart,

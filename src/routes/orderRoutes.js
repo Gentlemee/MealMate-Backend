@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from 'express';
+import {
   createOrder,
   getMyOrders,
   getOrderById,
@@ -9,72 +7,71 @@ const {
   getOrderHistory,
   getVendorOrders,
   updateOrderStatus,
-} = require("../controllers/orderController");
-
-const {
+} from '../controllers/orderController.js';
+import {
   protect,
   authorize,
-} = require("../middleware/authMiddleware");
+} from '../middleware/authMiddleware.js';
+
+const router = express.Router();
 
 // Customer Routes
 
-
 // Create Order
 router.post(
-  "/",
+  '/',
   protect,
-  authorize("customer"),
+  authorize('customer'),
   createOrder
 );
 
 // Get Customer Orders
 router.get(
-  "/my-orders",
+  '/my-orders',
   protect,
-  authorize("customer"),
+  authorize('customer'),
   getMyOrders
 );
 
 // Get Customer Order History
 router.get(
-  "/history",
+  '/history',
   protect,
-  authorize("customer"),
+  authorize('customer'),
   getOrderHistory
 );
 
 // Get Single Order
 router.get(
-  "/:id",
+  '/:id',
   protect,
   getOrderById
 );
 
 // Cancel Order
 router.patch(
-  "/:id/cancel",
+  '/:id/cancel',
   protect,
-  authorize("customer"),
+  authorize('customer'),
   cancelOrder
 );
 
 // Vendor Routes
 
-
 // Get Vendor Orders
 router.get(
-  "/vendor/orders",
+  '/vendor/orders',
   protect,
-  authorize("vendor"),
+  authorize('vendor'),
   getVendorOrders
 );
 
 // Update Order Status
 router.patch(
-  "/:id/status",
+  '/:id/status',
   protect,
-  authorize("vendor"),
+  authorize('vendor'),
   updateOrderStatus
 );
 
-module.exports = router;
+export default router;

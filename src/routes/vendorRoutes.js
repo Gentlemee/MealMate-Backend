@@ -1,19 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
   createVendor,
   getVendors,
   getVendorById,
   updateVendor,
   deleteVendor,
-} = require('../controllers/vendorController');
-const { protect, authorize } = require('../middleware/authMiddleware');
-const {
+} from '../controllers/vendorController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
+import {
   validateObjectIdParam,
   validateVendorCreate,
   validateVendorQuery,
   validateVendorUpdate,
-} = require('../middleware/validateRequest');
+} from '../middleware/validateRequest.js';
+
+const router = express.Router();
 
 router
   .route('/')
@@ -37,4 +38,4 @@ router
     deleteVendor
   );
 
-module.exports = router;
+export default router;

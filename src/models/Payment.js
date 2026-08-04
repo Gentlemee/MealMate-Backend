@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const paymentSchema = new mongoose.Schema(
   {
     order: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
+      ref: 'Order',
       required: true,
     },
 
     customer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
 
@@ -21,8 +21,8 @@ const paymentSchema = new mongoose.Schema(
 
     paymentMethod: {
       type: String,
-      enum: ["Paystack", "Flutterwave", "Cash"],
-      default: "Paystack",
+      enum: ['Paystack', 'Flutterwave', 'Cash'],
+      default: 'Paystack',
     },
 
     transactionReference: {
@@ -33,8 +33,8 @@ const paymentSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Pending", "Paid", "Failed"],
-      default: "Pending",
+      enum: ['Pending', 'Paid', 'Failed'],
+      default: 'Pending',
     },
 
     paidAt: Date,
@@ -44,4 +44,4 @@ const paymentSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Payment", paymentSchema);
+export default mongoose.model('Payment', paymentSchema);

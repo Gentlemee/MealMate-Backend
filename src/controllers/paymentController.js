@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const paymentService = require("../services/payment.service");
+import asyncHandler from 'express-async-handler';
+import * as paymentService from '../services/payment.service.js';
 
 // Initialize Payment
-exports.initializePayment = asyncHandler(async (req, res) => {
+export const initializePayment = asyncHandler(async (req, res) => {
   const payment = await paymentService.initializePayment(
     req.params.orderId,
     req.user
@@ -16,7 +16,7 @@ exports.initializePayment = asyncHandler(async (req, res) => {
 });
 
 // Verify Payment
-exports.verifyPayment = asyncHandler(async (req, res) => {
+export const verifyPayment = asyncHandler(async (req, res) => {
   const payment = await paymentService.verifyPayment(
     req.params.reference
   );

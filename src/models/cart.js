@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const cartItemSchema = new mongoose.Schema(
   {
     meal: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Meal",
+      ref: 'Meal',
       required: true,
     },
 
@@ -24,7 +24,7 @@ const cartSchema = new mongoose.Schema(
   {
     customer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
       unique: true,
     },
@@ -36,4 +36,4 @@ const cartSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Cart", cartSchema);
+export default mongoose.model('Cart', cartSchema);

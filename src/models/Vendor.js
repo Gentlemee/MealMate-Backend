@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const openingHourSchema = new mongoose.Schema(
   {
@@ -121,4 +121,4 @@ const vendorSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Vendor', vendorSchema);
+export default mongoose.model('Vendor', vendorSchema);

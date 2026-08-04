@@ -1,9 +1,9 @@
-const asyncHandler = require("express-async-handler");
-const orderService = require("../services/order.service");
+import asyncHandler from 'express-async-handler';
+import * as orderService from '../services/order.service.js';
 
 // Create Order
 
-exports.createOrder = asyncHandler(async (req, res) => {
+export const createOrder = asyncHandler(async (req, res) => {
   const { deliveryAddress, paymentMethod } = req.body;
 
   const order = await orderService.createOrder(
@@ -21,7 +21,7 @@ exports.createOrder = asyncHandler(async (req, res) => {
 
 // Get My Orders
 
-exports.getMyOrders = asyncHandler(async (req, res) => {
+export const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await orderService.getMyOrders(req.user._id);
 
   res.status(200).json({
@@ -33,7 +33,7 @@ exports.getMyOrders = asyncHandler(async (req, res) => {
 
 // Get Single Order
 
-exports.getOrderById = asyncHandler(async (req, res) => {
+export const getOrderById = asyncHandler(async (req, res) => {
   const order = await orderService.getOrderById(
     req.params.id,
     req.user
@@ -47,7 +47,7 @@ exports.getOrderById = asyncHandler(async (req, res) => {
 
 // Cancel Order
 
-exports.cancelOrder = asyncHandler(async (req, res) => {
+export const cancelOrder = asyncHandler(async (req, res) => {
   const order = await orderService.cancelOrder(
     req.params.id,
     req.user._id
@@ -62,7 +62,7 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
 
 // Order History
 
-exports.getOrderHistory = asyncHandler(async (req, res) => {
+export const getOrderHistory = asyncHandler(async (req, res) => {
   const orders = await orderService.getOrderHistory(req.user._id);
 
   res.status(200).json({
@@ -74,7 +74,7 @@ exports.getOrderHistory = asyncHandler(async (req, res) => {
 
 // Vendor Orders
 
-exports.getVendorOrders = asyncHandler(async (req, res) => {
+export const getVendorOrders = asyncHandler(async (req, res) => {
   const orders = await orderService.getVendorOrders(req.user.vendor);
 
   res.status(200).json({
@@ -86,7 +86,7 @@ exports.getVendorOrders = asyncHandler(async (req, res) => {
 
 
 // Update Order Status
-exports.updateOrderStatus = asyncHandler(async (req, res) => {
+export const updateOrderStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
 
   const order = await orderService.updateOrderStatus(

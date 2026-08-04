@@ -1,4 +1,4 @@
-const Vendor = require('../models/Vendor');
+import Vendor from '../models/Vendor.js';
 
 const calculateDistanceKm = (lat1, lng1, lat2, lng2) => {
   const toRadians = (value) => (value * Math.PI) / 180;
@@ -46,7 +46,7 @@ const createUniqueSlug = async (Model, value, excludeId = null) => {
 // @desc    Create vendor profile
 // @route   POST /api/vendors
 // @access  Private (Vendor/Admin)
-exports.createVendor = async (req, res, next) => {
+export const createVendor = async (req, res, next) => {
   try {
     const existingVendor = await Vendor.findOne({ user: req.user.id });
     if (existingVendor) {
@@ -85,7 +85,7 @@ exports.createVendor = async (req, res, next) => {
 // @desc    Get all vendors
 // @route   GET /api/vendors
 // @access  Public
-exports.getVendors = async (req, res, next) => {
+export const getVendors = async (req, res, next) => {
   try {
     const {
       search,
@@ -173,7 +173,7 @@ exports.getVendors = async (req, res, next) => {
 // @desc    Get single vendor
 // @route   GET /api/vendors/:id
 // @access  Public
-exports.getVendorById = async (req, res, next) => {
+export const getVendorById = async (req, res, next) => {
   try {
     const vendor = await Vendor.findById(req.params.id).populate(
       'user',
@@ -193,7 +193,7 @@ exports.getVendorById = async (req, res, next) => {
 // @desc    Update vendor
 // @route   PATCH /api/vendors/:id
 // @access  Private (Owner/Admin)
-exports.updateVendor = async (req, res, next) => {
+export const updateVendor = async (req, res, next) => {
   try {
     const vendor = await Vendor.findById(req.params.id);
 
@@ -248,7 +248,7 @@ exports.updateVendor = async (req, res, next) => {
 // @desc    Delete vendor
 // @route   DELETE /api/vendors/:id
 // @access  Private (Owner/Admin)
-exports.deleteVendor = async (req, res, next) => {
+export const deleteVendor = async (req, res, next) => {
   try {
     const vendor = await Vendor.findById(req.params.id);
 
@@ -267,4 +267,4 @@ exports.deleteVendor = async (req, res, next) => {
   }
 };
 
-exports.createUniqueVendorSlug = createUniqueSlug;
+export const createUniqueVendorSlug = createUniqueSlug;

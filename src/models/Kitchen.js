@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const kitchenSchema = new mongoose.Schema(
   {
@@ -48,4 +48,4 @@ const kitchenSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Kitchen', kitchenSchema);
+export default mongoose.model('Kitchen', kitchenSchema);

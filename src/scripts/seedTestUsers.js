@@ -1,8 +1,8 @@
-const dotenv = require('dotenv');
-const connectDB = require('../config/db');
-const User = require('../models/Users');
-const Vendor = require('../models/Vendor');
-const generateToken = require('../utils/generateToken');
+import dotenv from 'dotenv';
+import connectDB from '../config/db.js';
+import User from '../models/Users.js';
+import Vendor from '../models/Vendor.js';
+import generateToken from '../utils/generateToken.js';
 
 dotenv.config();
 

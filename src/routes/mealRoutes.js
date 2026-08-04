@@ -1,6 +1,5 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
   createMeal,
   getMeals,
   getMealById,
@@ -18,8 +17,10 @@ const {
   deleteMealImage,
   getPopularMeals,
   getRecommendedMeals,
-} = require('../controllers/mealController');
-const { protect, authorize } = require('../middleware/authMiddleware');
+} from '../controllers/mealController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
+import validateRequest from '../middleware/validateRequest.js';
+
 const {
   validateMealAvailabilityUpdate,
   validateMealCategoryCreate,
@@ -30,7 +31,9 @@ const {
   validateMealQuery,
   validateMealUpdate,
   validateObjectIdParam,
-} = require('../middleware/validateRequest');
+} = validateRequest;
+
+const router = express.Router();
 
 router.get('/popular', getPopularMeals);
 router.get('/recommended', getRecommendedMeals);
@@ -108,4 +111,4 @@ router
     deleteMealImage
   );
 
-module.exports = router;
+export default router;

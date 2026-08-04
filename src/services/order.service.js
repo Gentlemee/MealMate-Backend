@@ -1,5 +1,5 @@
-const Order = require("../models/Order");
-const Cart = require("../models/Cart");
+import Order from '../models/Order.js';
+import Cart from '../models/Cart.js';
 
 // Create Orders (One Order Per Vendor)
 
@@ -192,7 +192,7 @@ const getVendorOrders = async (vendorId) => {
 
 // Update Order Status
 
-const updateOrderStatus = async (
+export const updateOrderStatus = async (
   orderId,
   status,
   vendorId
@@ -234,12 +234,11 @@ const updateOrderStatus = async (
     .populate("items.vendor", "businessName");
 };
 
-module.exports = {
+export {
   createOrder,
   getMyOrders,
   getOrderById,
   cancelOrder,
   getOrderHistory,
   getVendorOrders,
-  updateOrderStatus,
 };

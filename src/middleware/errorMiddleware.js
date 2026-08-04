@@ -1,10 +1,10 @@
-const AppError = require('../utils/appError');
+import AppError from '../utils/appError.js';
 
-exports.notFound = (req, _res, next) => {
+export const notFound = (req, _res, next) => {
   next(new AppError(`Route not found: ${req.method} ${req.originalUrl}`, 404));
 };
 
-exports.errorHandler = (error, _req, res, _next) => {
+export const errorHandler = (error, _req, res, _next) => {
   let err = error;
 
   if (!(err instanceof AppError)) {

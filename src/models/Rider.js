@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const riderSchema = new mongoose.Schema(
   {
@@ -37,4 +37,6 @@ const riderSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Rider', riderSchema);
+const Rider = mongoose.models.Rider || mongoose.model('Rider', riderSchema);
+
+export default Rider;

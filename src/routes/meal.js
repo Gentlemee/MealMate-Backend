@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Meal from '../models/Meal.js';
+
 const router = express.Router();
-const Meal = require('../models/meal'); // Ensure this path matches your folder structure
 
 // @route   GET /api/meals
 // @desc    Get all available meals
@@ -83,4 +84,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

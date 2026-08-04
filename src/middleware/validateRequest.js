@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const AppError = require('../utils/appError');
+import mongoose from 'mongoose';
+import AppError from '../utils/appError.js';
 
 const isPlainObject = (value) =>
   value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -149,7 +149,7 @@ const runValidation = (validator) => (req, _res, next) => {
   return next();
 };
 
-exports.validateObjectIdParam = (paramName) =>
+export const validateObjectIdParam = (paramName) =>
   runValidation((req) => {
     const value = req.params[paramName];
     if (!isValidObjectId(value)) {
@@ -158,7 +158,7 @@ exports.validateObjectIdParam = (paramName) =>
     return [];
   });
 
-exports.validateVendorCreate = runValidation((req) => {
+export const validateVendorCreate = runValidation((req) => {
   const errors = [];
   const body = req.body;
 
@@ -201,7 +201,7 @@ exports.validateVendorCreate = runValidation((req) => {
   return errors;
 });
 
-exports.validateVendorUpdate = runValidation((req) => {
+export const validateVendorUpdate = runValidation((req) => {
   const errors = [];
   const body = req.body;
 
@@ -254,9 +254,9 @@ exports.validateVendorUpdate = runValidation((req) => {
   return errors;
 });
 
-exports.validateVendorQuery = runValidation((req) => validateGeoQueryParams(req.query));
+export const validateVendorQuery = runValidation((req) => validateGeoQueryParams(req.query));
 
-exports.validateKitchenCreate = runValidation((req) => {
+export const validateKitchenCreate = runValidation((req) => {
   const errors = [];
   const body = req.body;
 
@@ -279,7 +279,7 @@ exports.validateKitchenCreate = runValidation((req) => {
   return errors;
 });
 
-exports.validateKitchenUpdate = runValidation((req) => {
+export const validateKitchenUpdate = runValidation((req) => {
   const errors = [];
   const body = req.body;
 
@@ -370,7 +370,7 @@ const validateVariants = (variants, label = 'variants') => {
   return errors;
 };
 
-exports.validateMealCategoryCreate = runValidation((req) => {
+export const validateMealCategoryCreate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -389,7 +389,7 @@ exports.validateMealCategoryCreate = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealCategoryUpdate = runValidation((req) => {
+export const validateMealCategoryUpdate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -408,7 +408,7 @@ exports.validateMealCategoryUpdate = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealCreate = runValidation((req) => {
+export const validateMealCreate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -487,7 +487,7 @@ exports.validateMealCreate = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealUpdate = runValidation((req) => {
+export const validateMealUpdate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -541,7 +541,7 @@ exports.validateMealUpdate = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealQuery = runValidation((req) => {
+export const validateMealQuery = runValidation((req) => {
   const errors = validateGeoQueryParams(req.query);
 
   ['vendor', 'kitchen', 'category'].forEach((field) => {
@@ -564,11 +564,11 @@ exports.validateMealQuery = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealAvailabilityUpdate = runValidation((req) =>
+export const validateMealAvailabilityUpdate = runValidation((req) =>
   validateAvailability(req.body)
 );
 
-exports.validateMealImageCreate = runValidation((req) => {
+export const validateMealImageCreate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -587,7 +587,7 @@ exports.validateMealImageCreate = runValidation((req) => {
   return errors;
 });
 
-exports.validateMealImageUpdate = runValidation((req) => {
+export const validateMealImageUpdate = runValidation((req) => {
   const body = req.body;
   const errors = [];
 
@@ -605,3 +605,20 @@ exports.validateMealImageUpdate = runValidation((req) => {
 
   return errors;
 });
+
+export default {
+  validateObjectIdParam,
+  validateVendorCreate,
+  validateVendorUpdate,
+  validateVendorQuery,
+  validateKitchenCreate,
+  validateKitchenUpdate,
+  validateMealCategoryCreate,
+  validateMealCategoryUpdate,
+  validateMealCreate,
+  validateMealUpdate,
+  validateMealQuery,
+  validateMealAvailabilityUpdate,
+  validateMealImageCreate,
+  validateMealImageUpdate,
+};

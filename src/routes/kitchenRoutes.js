@@ -1,17 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
   createKitchen,
   getKitchens,
   updateKitchen,
   deleteKitchen,
-} = require('../controllers/kitchenController');
-const { protect, authorize } = require('../middleware/authMiddleware');
-const {
-  validateObjectIdParam,
-  validateKitchenCreate,
-  validateKitchenUpdate,
-} = require('../middleware/validateRequest');
+} from '../controllers/kitchenController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
+import * as validateRequest from '../middleware/validateRequest.js';
+
+const router = express.Router();
+
+const { validateObjectIdParam, validateKitchenCreate, validateKitchenUpdate } = validateRequest;
 
 router
   .route('/')
@@ -39,4 +38,4 @@ router
     deleteKitchen
   );
 
-module.exports = router;
+export default router;

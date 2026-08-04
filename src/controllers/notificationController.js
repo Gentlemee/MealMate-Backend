@@ -1,9 +1,9 @@
-const Notification = require('../models/Notification');
+import Notification from '../models/Notification.js';
 
 // @desc    Get all notifications for logged-in user
 // @route   GET /api/notifications
 // @access  Private
-exports.getUserNotifications = async (req, res) => {
+export const getUserNotifications = async (req, res) => {
   try {
     const notifications = await Notification.find({ recipient: req.user.id })
       .sort({ createdAt: -1 });
@@ -21,7 +21,7 @@ exports.getUserNotifications = async (req, res) => {
 // @desc    Mark a notification as read
 // @route   PATCH /api/notifications/:id/read
 // @access  Private
-exports.markAsRead = async (req, res) => {
+export const markAsRead = async (req, res) => {
   try {
     const notification = await Notification.findById(req.params.id);
 

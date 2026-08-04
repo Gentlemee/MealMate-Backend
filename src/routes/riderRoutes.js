@@ -1,16 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const {
+import express from 'express';
+import {
   registerRiderProfile,
   getRiderProfile,
   toggleAvailability,
-} = require('../controllers/riderController');
+} from '../controllers/riderController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
-// Note: Replace 'protect' with your actual authentication middleware name if different
-const { protect } = require('../middleware/authMiddleware');
+const router = express.Router();
 
 router.post('/register', protect, registerRiderProfile);
 router.get('/me', protect, getRiderProfile);
 router.patch('/availability', protect, toggleAvailability);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const Kitchen = require('../models/Kitchen');
-const Vendor = require('../models/Vendor');
+import Kitchen from '../models/Kitchen.js';
+import Vendor from '../models/Vendor.js';
 
 const buildSlug = (value) =>
   value
@@ -33,7 +33,7 @@ const getVendorForUser = async (userId) => Vendor.findOne({ user: userId });
 // @desc    Create kitchen/storefront
 // @route   POST /api/kitchens
 // @access  Private (Vendor/Admin)
-exports.createKitchen = async (req, res, next) => {
+export const createKitchen = async (req, res, next) => {
   try {
     const vendor = await getVendorForUser(req.user.id);
 
@@ -76,7 +76,7 @@ exports.createKitchen = async (req, res, next) => {
 // @desc    Get all kitchens
 // @route   GET /api/kitchens
 // @access  Public
-exports.getKitchens = async (req, res, next) => {
+export const getKitchens = async (req, res, next) => {
   try {
     const { search, city, state, vendor, serviceMode } = req.query;
     const filter = {};
@@ -103,7 +103,7 @@ exports.getKitchens = async (req, res, next) => {
 // @desc    Update kitchen
 // @route   PATCH /api/kitchens/:id
 // @access  Private (Owner/Admin)
-exports.updateKitchen = async (req, res, next) => {
+export const updateKitchen = async (req, res, next) => {
   try {
     const kitchen = await Kitchen.findById(req.params.id).populate('vendor');
 
@@ -138,7 +138,7 @@ exports.updateKitchen = async (req, res, next) => {
 // @desc    Delete kitchen
 // @route   DELETE /api/kitchens/:id
 // @access  Private (Owner/Admin)
-exports.deleteKitchen = async (req, res, next) => {
+export const deleteKitchen = async (req, res, next) => {
   try {
     const kitchen = await Kitchen.findById(req.params.id).populate('vendor');
 
