@@ -1,0 +1,53 @@
+import Cart from "../models/cart.js";
+
+const addToCart = async (customerId, mealId, quantity = 1) => {
+  let cart = await Cart.findOne({ customer: customerId });
+  if (!cart) {
+    cart = await Cart.create({ customer: customerId, items: [{ meal: mealId, quantity }] });
+    return cart;
+  }
+
+  const existingItem = cart.items.find((item) => item.meal.toString() === mealId.toString());
+  if (existingItem) existingItem.quantity += quantity;
+  else cart.items.push({ meal: mealId, quantity });
+
+  await cart.save();
+  return cart;
+};
+
+const getCart = async (customerId) => {
+  const cart = await Cart.findOne({ customer: customerId }).populate("items.meal");
+  if (!cart) return { customer: customerId, items: [] };
+  return cart;
+};
+
+const updateCart = async (customerId, mealId, quantity) => {
+  const cart = await Cart.findOne({ customer: customerId });
+  if (!cart) throw new Error("Cart not found");
+  const item = cart.items.find((entry) => entry.meal.toString() === mealId.toString());
+  if (!item) throw new Error("Meal not found in cart");
+  if (quantity < 1) throw new Error("Quantity must be at least 1");
+  item.quantity = quantity;
+  await cart.save();
+  return cart;
+};
+
+const removeFromCart = async (customerId, mealId) => {
+  const cart = await Cart.findOne({ customer: customerId });
+  if (!cart) throw new Error("Cart not found");
+  const itemExists = cart.items.some((item) => item.meal.toString() === mealId.toString());
+  if (!itemExists) throw new Error("Meal not found in cart");
+  cart.items = cart.items.filter((item) => item.meal.toString() !== mealId.toString());
+  await cart.save();
+  return cart;
+};
+
+const clearCart = async (customerId) => {
+  const cart = await Cart.findOne({ customer: customerId });
+  if (!cart) throw new Error("Cart not found");
+  cart.items = [];
+  await cart.save();
+  return cart;
+};
+
+export { addToCart, getCart, updateCart, removeFromCart, clearCart };
